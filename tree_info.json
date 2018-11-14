@@ -1,0 +1,32 @@
+{
+	"name": "root",
+	"dimm1": 1,
+	"dimm2": 2,
+	"dimm3": 3,
+	"color": "0xff00ff",
+	"children": [
+		{
+			"name": "root #0",
+			"dimm1": 5,
+			"dimm2": 6,
+			"dimm3": 7,
+			"color": "0x00ffff"
+		},
+		{
+			"name": "root #1",
+			"dimm1": 10,
+			"dimm2": 8,
+			"dimm3": 3,
+			"color": "0x00ff00",
+			"children": [
+				{
+					"name": "root #1 #1",
+					"dimm1": 1,
+					"dimm2": 4,
+					"dimm3": 3,
+					"color": "0xffff00"
+				}
+			]
+		}
+	]
+}
