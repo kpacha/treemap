@@ -2,6 +2,7 @@ package volume
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -9,8 +10,21 @@ import (
 	"github.com/kpacha/treemap"
 )
 
+var block *treemap.Block
+
+func init() {
+	data, err := ioutil.ReadFile("../docs/tree.json")
+	if err == nil && json.Unmarshal(data, block) == nil {
+		return
+	}
+
+	b := &treemap.Block{}
+	block = b.Generate(rand.New(rand.NewSource(123)), 6).Interface().(*treemap.Block)
+	ioutil.WriteFile("../docs/tree.json", []byte(block.String()), 0664)
+}
+
 func ExampleNewPNG() {
-	encoder, err := NewPNG(generateTree(), 1024, 768)
+	encoder, err := NewPNG(block, 1024, 768)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -24,7 +38,7 @@ func ExampleNewPNG() {
 }
 
 func ExampleNewJPEG() {
-	encoder, err := NewJPEG(generateTree(), 1024, 768)
+	encoder, err := NewJPEG(block, 1024, 768)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -38,7 +52,7 @@ func ExampleNewJPEG() {
 }
 
 func ExampleNewGIF() {
-	encoder, err := NewGIF(generateTree(), 1024, 768)
+	encoder, err := NewGIF(block, 1024, 768)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -49,9 +63,4 @@ func ExampleNewGIF() {
 	// output:
 	// 52546 <nil>
 	// <nil>
-}
-
-func generateTree() *treemap.Block {
-	b := &treemap.Block{}
-	return b.Generate(rand.New(rand.NewSource(0)), 5).Interface().(*treemap.Block)
 }

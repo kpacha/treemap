@@ -48,9 +48,6 @@ func (t *TreeInfo) Generate(rand *rand.Rand, size int) reflect.Value {
 }
 
 func generateTreeInfo(rand *rand.Rand, name string, size int) *TreeInfo {
-	if size > 5 {
-		size = 5
-	}
 	children := []*TreeInfo{}
 	for i := 0; i < size; i++ {
 		if rand.Intn(10) > 6 {

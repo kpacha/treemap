@@ -59,8 +59,7 @@ func Image(tree *treemap.Block, width, height float64) (image.Image, error) {
 		return nil, err
 	}
 
-	p.Rotate(-2*math.Pi/3, 0, 0)
-	p.Rotate(0, math.Pi/7, 0)
+	p.Rotate(-2*math.Pi/3, math.Pi/7, 0)
 	return p.Image(int(width), int(height), nil), nil
 }
 
